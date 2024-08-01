@@ -1,0 +1,27 @@
+name: Pull Requests
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - '1.12.x-jetty12'
+
+env:
+  GOLANG_VERSION: 1.22
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Golang
+        id: setup-go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ env.GOLANG_VERSION }}
+
+      - name: Build Utility
+        run: go build
